@@ -12,8 +12,6 @@
     <application
         android:name=".WatchApp"
         android:label="SPExerise"
-        android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/Theme.SpExerise"
         android:allowBackup="true"
         android:supportsRtl="true">

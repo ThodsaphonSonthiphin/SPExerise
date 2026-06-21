@@ -9,6 +9,5 @@ import android.app.Application
 class WatchApp : Application() {
     override fun onCreate() {
         super.onCreate()
-        // Future: initialize Hilt, logging, or other app-wide components here
     }
 }
