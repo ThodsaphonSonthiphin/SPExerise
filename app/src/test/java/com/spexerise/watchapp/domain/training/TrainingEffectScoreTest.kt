@@ -29,4 +29,12 @@ class TrainingEffectScoreTest {
         val score = TrainingEffectScore.anaerobic(state, 50f)
         assertThat(score).isEqualTo(0.0f)
     }
+
+    @Test fun `aerobic label for score below 1 is No benefit`() {
+        assertThat(TrainingEffectScore.aerobicLabel(0.5f)).isEqualTo("No benefit")
+    }
+
+    @Test fun `aerobic label for exactly 5 is Overreaching`() {
+        assertThat(TrainingEffectScore.aerobicLabel(5.0f)).isEqualTo("Overreaching — rest soon")
+    }
 }

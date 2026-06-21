@@ -14,13 +14,15 @@ object EpocCalculator {
         vo2Max: Float,
         deltaSeconds: Int
     ): EpocState {
+        if (hrMaxBpm <= hrRestBpm) return state
         val hrReserve = (hrBpm - hrRestBpm).toFloat() / (hrMaxBpm - hrRestBpm)
         if (hrReserve <= 0f) return state
+        if (deltaSeconds <= 0) return state
 
         val epocRatePerMin = when {
             hrReserve < 0.50f -> 0f
             hrReserve < 0.60f -> vo2Max * 0.003f * hrReserve
-            hrReserve < 0.75f -> vo2Max * 0.008f * hrReserve
+            hrReserve < 0.75f -> vo2Max * 0.014f * hrReserve
             hrReserve < 0.85f -> vo2Max * 0.018f * hrReserve
             else               -> vo2Max * 0.030f * hrReserve
         }

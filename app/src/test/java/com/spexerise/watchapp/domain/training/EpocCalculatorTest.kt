@@ -35,4 +35,18 @@ class EpocCalculatorTest {
         val result = EpocCalculator.accumulate(state, hr, 55, 185, 50f, 60)
         assertThat(result.accumulatedEpoc).isEqualTo(0f)
     }
+
+    @Test fun `anaerobic contribution is zero below 85 percent hr reserve`() {
+        val state = EpocState(0f, 0f)
+        val hr = 55 + (0.84f * (185 - 55)).toInt()  // just below 85%
+        val result = EpocCalculator.accumulate(state, hr, 55, 185, 50f, 60)
+        assertThat(result.anaerobicContribution).isEqualTo(0f)
+    }
+
+    @Test fun `anaerobic contribution increases above 85 percent hr reserve`() {
+        val state = EpocState(0f, 0f)
+        val hr = 55 + (0.90f * (185 - 55)).toInt()  // 90% HR reserve
+        val result = EpocCalculator.accumulate(state, hr, 55, 185, 50f, 60)
+        assertThat(result.anaerobicContribution).isGreaterThan(0f)
+    }
 }
