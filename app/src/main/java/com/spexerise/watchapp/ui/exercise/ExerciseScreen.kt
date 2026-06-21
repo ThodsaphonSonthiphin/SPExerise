@@ -47,7 +47,9 @@ fun ExerciseScreen(viewModel: ExerciseViewModel) {
 
         Spacer(Modifier.height(4.dp))
 
-        Text("Zone ${state.hrZone}", color = Color(0xFF4ADE80), fontSize = 12.sp)
+        state.hrZone?.let { zone ->
+            Text("Zone $zone", color = Color(0xFF4ADE80), fontSize = 12.sp)
+        }
         Text(state.aerobicLabel, color = Color.Gray, fontSize = 10.sp)
     }
 }

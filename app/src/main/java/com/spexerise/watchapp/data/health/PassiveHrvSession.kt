@@ -3,6 +3,7 @@ package com.spexerise.watchapp.data.health
 import android.content.Context
 import androidx.health.services.client.HealthServices
 import androidx.health.services.client.PassiveListenerCallback
+import androidx.health.services.client.PassiveMonitoringClient
 import androidx.health.services.client.data.DataPointContainer
 import androidx.health.services.client.data.DataType
 import androidx.health.services.client.data.PassiveListenerConfig
@@ -10,12 +11,12 @@ import kotlin.math.sqrt
 
 object PassiveHrvSession {
     private val hrBuffer = mutableListOf<Int>()
-    private var appContext: Context? = null
+    private var passiveClient: PassiveMonitoringClient? = null
 
     fun startNightlyMeasurement(context: Context, onResult: (rmssd: Float, restingHr: Int) -> Unit) {
         hrBuffer.clear()
-        appContext = context.applicationContext
-        val client = HealthServices.getClient(context).passiveMonitoringClient
+        val client = HealthServices.getClient(context.applicationContext).passiveMonitoringClient
+        passiveClient = client
         val config = PassiveListenerConfig.builder()
             .setDataTypes(setOf(DataType.HEART_RATE_BPM))
             .build()
@@ -37,7 +38,8 @@ object PassiveHrvSession {
 
     fun stopMeasurement() {
         hrBuffer.clear()
-        appContext = null
+        passiveClient?.clearPassiveListenerCallbackAsync()
+        passiveClient = null
     }
 
     private fun computeRmssd(hrSamples: List<Int>): Float {

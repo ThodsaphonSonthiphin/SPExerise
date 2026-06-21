@@ -2,7 +2,8 @@ package com.spexerise.watchapp.domain.readiness
 
 object ReadinessCalculator {
     fun compute(hrv: Float, sleep: Float, atl: Float, rhr: Float): Int {
-        val atlComponent = (1f - (atl / 100f).coerceIn(0f, 1f)) * 100f
+        // Spec: ATL < 30 → 100 (well rested); ATL > 100 → 0; linear between
+        val atlComponent = ((100f - atl.coerceIn(30f, 100f)) / 70f) * 100f
         val raw = hrv * 0.35f + sleep * 0.30f + atlComponent * 0.20f + rhr * 0.15f
         return raw.toInt().coerceIn(0, 100)
     }
