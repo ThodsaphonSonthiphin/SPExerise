@@ -1,21 +1,21 @@
 package com.spexerise.watchapp
 
-import com.google.common.truth.Truth.assertThat
+import androidx.activity.ComponentActivity
 import org.junit.Test
+import kotlin.reflect.full.superclasses
 
 /**
- * TDD: Failing test written before implementation.
- * Verifies the greeting text that MainActivity displays.
- *
- * This test will pass once MainActivity renders "Hello Watch".
- * For UI verification on device/emulator, see the androidTest suite.
+ * Smoke test verifying MainActivity is a ComponentActivity subclass.
+ * The old greeting-based test was removed when navigation replaced
+ * the static "Hello Watch" screen in Task 9.
  */
 class MainActivityTest {
 
     @Test
-    fun `greeting text is Hello Watch`() {
-        val expectedGreeting = "Hello Watch"
-        // The greeting constant exposed for testability
-        assertThat(MainActivityGreeting.TEXT).isEqualTo(expectedGreeting)
+    fun `MainActivity extends ComponentActivity`() {
+        val superclasses = MainActivity::class.superclasses
+        assert(superclasses.any { it == ComponentActivity::class }) {
+            "Expected MainActivity to extend ComponentActivity"
+        }
     }
 }
