@@ -77,8 +77,17 @@ dependencies {
     // Samsung Health Sensor SDK (local AAR placeholder — download from developer.samsung.com/health)
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.aar", "*.jar"))))
 
+    // Wear Tiles
+    implementation("androidx.wear.tiles:tiles:1.2.0")
+    implementation("androidx.wear.tiles:tiles-material:1.2.0")
+
+    // Wear Watchface Complications
+    implementation("androidx.wear.watchface:watchface-complications-data-source:1.2.0")
+    implementation("androidx.wear.watchface:watchface-complications-data:1.2.0")
+
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-guava:1.7.3")
 
     // Core AndroidX
     implementation("androidx.core:core-ktx:1.12.0")
